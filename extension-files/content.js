@@ -1,4 +1,4 @@
-// words that mean someone is struggling
+// words that mean someone is struggling, which we got from analysis of embedding/csv files we scraped
 const NEGATIVE_KEYWORDS = [
   "depressed","depression","suicidal","suicide","kill myself","end it all",
   "want to die","worthless","hopeless","can't go on","give up","no point",
