@@ -17,7 +17,7 @@ const NEGATIVE_KEYWORDS = [
   "nothing to live for","everyone would be better without me"
 ];
 
-// words that mean someone is doing well
+// words that mean someone is doing well, which we got from analysis of embedding/csv files we scraped
 const POSITIVE_KEYWORDS = [
   "happy","happiness","joyful","joy","excited","grateful","thankful","blessed",
   "amazing","awesome","wonderful","fantastic","incredible","great","love","loved",
@@ -34,7 +34,7 @@ const POSITIVE_KEYWORDS = [
 let alertActive = false;
 let lastAlertTime = 0;
 
-// 30 second cooldown so it doesnt spam
+// 30 second cooldown so it doesnt spam and completely fry computers
 const COOLDOWN_MS = 30000;
 
 // count how many keywords match
