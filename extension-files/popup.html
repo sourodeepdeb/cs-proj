@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>HappyLy</title>
+<style>
+/* reset spacing */
+*{box-sizing:border-box;margin:0;padding:0;}
+/* dark purple background, fixed width */
+body{width:280px;background:linear-gradient(145deg,#0d0018,#130028);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#fff;overflow:hidden;}
+/* pulsing status dot animation */
+@keyframes pulsedot{0%,100%{opacity:0.5;transform:scale(0.9)}50%{opacity:1;transform:scale(1.1)}}
+/* top logo and name section */
+.header{padding:18px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);display:flex;align-items:center;gap:11px;}
+/* purple logo square */
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#9333ea,#6d28d9);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:0 3px 12px rgba(109,40,217,0.4);}
+.appname{font-weight:800;font-size:15px;letter-spacing:-0.3px;}
+.tagline{font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.6px;text-transform:uppercase;margin-top:1px;}
+/* active status row */
+.status-row{padding:11px 20px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#9333ea;box-shadow:0 0 8px rgba(147,51,234,0.6);animation:pulsedot 2.5s ease-in-out infinite;flex-shrink:0;}
+.status-text{font-size:11px;color:rgba(255,255,255,0.3);}
+.body{padding:16px 16px 20px;}
+/* main open chat button */
+.btn-chat{width:100%;padding:13px 16px;border-radius:13px;border:none;background:linear-gradient(135deg,#9333ea,#6d28d9);color:#fff;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 18px rgba(109,40,217,0.4);transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+.btn-chat:hover{transform:translateY(-1px);}
+/* secondary ghost button */
+.btn-secondary{width:100%;padding:11px 16px;border-radius:13px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.55);font-size:13px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px;}
+.btn-secondary:hover{background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.8);}
+.divider{height:1px;background:rgba(255,255,255,0.06);margin:14px 0;}
+.section-label{font-size:10px;color:rgba(255,255,255,0.28);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:8px;}
+/* url input row */
+.url-row{display:flex;gap:7px;align-items:center;}
+.url-input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:9px 12px;color:#fff;font-size:12px;outline:none;transition:border-color 0.2s;}
+.url-input:focus{border-color:rgba(147,51,234,0.5);}
+.url-input::placeholder{color:rgba(255,255,255,0.2);}
+/* save button next to url input */
+.btn-save{padding:9px 13px;border-radius:10px;border:1px solid rgba(147,51,234,0.35);background:rgba(147,51,234,0.25);color:#c084fc;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.btn-save:hover{background:rgba(147,51,234,0.4);}
+/* confirmation message after saving */
+.saved-msg{font-size:11px;color:#a78bfa;margin-top:7px;text-align:center;display:none;}
+.url-hint{font-size:10.5px;color:rgba(255,255,255,0.2);margin-top:7px;line-height:1.5;}
+/* collapsible crisis resources list */
+.resources-panel{display:none;flex-direction:column;gap:8px;margin-top:10px;}
+.resources-panel.open{display:flex;}
+.res{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:11px;text-decoration:none;transition:all 0.2s;}
+.res:hover{background:rgba(147,51,234,0.12);}
+.res-icon{font-size:17px;flex-shrink:0;}
+.res-title{font-size:12px;font-weight:500;color:rgba(255,255,255,0.85);}
+.res-sub{font-size:10.5px;color:rgba(255,255,255,0.3);margin-top:1px;}
+.info{font-size:11px;color:rgba(255,255,255,0.18);text-align:center;line-height:1.6;padding:0 4px;}
+</style>
+</head>
+<body>
+
+<!-- header with logo -->
+<div class="header">
+  <div class="logo">😊</div>
+  <div>
+    <div class="appname">HappyLy</div>
+    <div class="tagline">always listening</div>
+  </div>
+</div>
+
+<!-- shows extension is running -->
+<div class="status-row">
+  <div class="status-dot"></div>
+  <div class="status-text">Active — monitoring all tabs in background</div>
+</div>
+
+<div class="body">
+
+  <!-- manually open chatbot anytime -->
+  <button class="btn-chat" id="btnChat">💙 Open HappyLy Chat</button>
+
+  <!-- toggle crisis resources dropdown -->
+  <button class="btn-secondary" id="btnResources">▸ Crisis resources</button>
+
+  <!-- hidden until button clicked -->
+  <div class="resources-panel" id="resPanel">
+    <a class="res" href="tel:988"><span class="res-icon">📞</span><div><div class="res-title">988 Lifeline</div><div class="res-sub">Call or text 988 — 24/7</div></div></a>
+    <a class="res" href="sms:741741&body=HOME"><span class="res-icon">💬</span><div><div class="res-title">Crisis Text Line</div><div class="res-sub">Text HOME to 741741</div></div></a>
+    <a class="res" href="https://www.nami.org/help" target="_blank"><span class="res-icon">🌐</span><div><div class="res-title">NAMI Helpline</div><div class="res-sub">1-800-950-6264</div></div></a>
+    <div style="height:6px;"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- paste ngrok url here to connect colab -->
+  <div class="section-label">Chatbot URL</div>
+  <div class="url-row">
+    <input class="url-input" id="urlInput" placeholder="https://xxxx.ngrok-free.dev"/>
+    <button class="btn-save" id="btnSave">Save</button>
+  </div>
+  <!-- shows after saving -->
+  <div class="saved-msg" id="savedMsg">✓ Saved!</div>
+  <div class="url-hint">Paste your ngrok URL here after running Colab.<br/>Leave blank to use localhost:5000.</div>
+
+  <div class="divider"></div>
+
+  <div class="info">HappyLy watches for distress signals while you browse and steps in automatically.</div>
+
+</div>
+
+<!-- js in separate file — chrome blocks inline scripts -->
+<script src="popup.js"></script>
+</body>
+</html>

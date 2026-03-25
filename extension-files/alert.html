@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>HappyLy — Check In</title>
+<style>
+/* reset spacing */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;}
+/* full screen dark purple background */
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:linear-gradient(135deg,#030008 0%,#0a0018 60%,#060010 100%);display:flex;align-items:center;justify-content:center;min-height:100vh;position:relative;}
+/* floating orb animations */
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+/* card pops in from center */
+@keyframes popIn{from{opacity:0;transform:scale(0.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+/* pulsing ring around emoji */
+@keyframes pulsering{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.12);opacity:1}}
+/* title gradient animation */
+@keyframes shimmer{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+/* background glow orbs */
+.orb1{position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(88,28,135,0.22) 0%,transparent 70%);top:-180px;right:-180px;animation:float1 10s ease-in-out infinite;pointer-events:none;}
+.orb2{position:fixed;width:450px;height:450px;border-radius:50%;background:radial-gradient(circle,rgba(68,8,115,0.16) 0%,transparent 70%);bottom:-130px;left:-130px;animation:float2 13s ease-in-out infinite reverse;pointer-events:none;}
+.orb3{position:fixed;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(109,40,217,0.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;animation:float1 8s ease-in-out infinite;}
+/* main card with glass effect */
+.card{position:relative;z-index:10;width:min(500px,92vw);background:rgba(255,255,255,0.03);backdrop-filter:blur(60px) saturate(180%);border:1px solid rgba(255,255,255,0.08);border-radius:32px;padding:48px 44px;box-shadow:0 0 0 1px rgba(255,255,255,0.04) inset,0 40px 100px rgba(0,0,0,0.7),0 0 80px rgba(88,28,135,0.18);animation:popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;text-align:center;}
+/* pulsing emoji icon at top */
+.pulse-ring{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,rgba(168,85,247,0.2),rgba(88,28,135,0.2));border:1.5px solid rgba(168,85,247,0.4);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px;animation:pulsering 2.5s ease-in-out infinite;box-shadow:0 0 50px rgba(168,85,247,0.25);}
+/* are you okay title */
+.title{font-weight:800;font-size:30px;color:#fff;margin-bottom:14px;letter-spacing:-0.6px;line-height:1.2;}
+/* gradient shimmer on title span */
+.title span{background:linear-gradient(90deg,#c084fc,#a855f7,#7c3aed);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 3s linear infinite;}
+.subtitle{font-size:15px;color:rgba(255,255,255,0.42);line-height:1.7;margin-bottom:36px;max-width:360px;margin-left:auto;margin-right:auto;}
+.divider{height:1px;background:rgba(255,255,255,0.06);margin-bottom:28px;}
+/* crisis hotline resource cards */
+.resources{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;text-align:left;}
+.res{display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.res:hover{background:rgba(168,85,247,0.12);border-color:rgba(168,85,247,0.28);transform:translateX(4px);}
+.res-icon{font-size:22px;flex-shrink:0;}
+.res-title{font-size:13.5px;font-weight:500;color:rgba(255,255,255,0.88);}
+.res-sub{font-size:11.5px;color:rgba(255,255,255,0.3);margin-top:2px;}
+/* two buttons at the bottom */
+.btns{display:flex;flex-direction:column;gap:10px;}
+/* primary talk to happyly button */
+.btn-talk{width:100%;padding:15px;border-radius:16px;border:none;background:linear-gradient(135deg,#9333ea,#6d28d9);color:#fff;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(109,40,217,0.4);transition:all 0.2s;}
+.btn-talk:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(109,40,217,0.55);}
+/* secondary im ok button */
+.btn-ok{width:100%;padding:14px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);font-size:14px;cursor:pointer;transition:all 0.2s;}
+.btn-ok:hover{background:rgba(255,255,255,0.09);color:rgba(255,255,255,0.75);}
+/* tab lock notice at the bottom */
+.lock-notice{margin-top:22px;font-size:11px;color:rgba(255,255,255,0.18);letter-spacing:0.5px;display:flex;align-items:center;justify-content:center;gap:6px;}
+.lock-dot{width:6px;height:6px;border-radius:50%;background:rgba(168,85,247,0.55);animation:pulsering 2s ease-in-out infinite;}
+</style>
+</head>
+<body>
+
+<!-- ambient background orbs -->
+<div class="orb1"></div>
+<div class="orb2"></div>
+<div class="orb3"></div>
+
+<!-- main alert card -->
+<div class="card">
+  <div class="pulse-ring">🫂</div>
+  <div class="title">Hey — <span>are you okay?</span></div>
+  <p class="subtitle">HappyLy noticed something in what you were typing. You don't have to go through this alone — real help is just one tap away.</p>
+  <div class="divider"></div>
+
+  <!-- crisis resources -->
+  <div class="resources">
+    <a class="res" href="tel:988"><span class="res-icon">📞</span><div><div class="res-title">988 Suicide & Crisis Lifeline</div><div class="res-sub">Call or text 988 — free, confidential, 24/7</div></div></a>
+    <a class="res" href="sms:741741&body=HOME"><span class="res-icon">💬</span><div><div class="res-title">Crisis Text Line</div><div class="res-sub">Text HOME to 741741 — available now</div></div></a>
+    <a class="res" href="https://www.nami.org/help" target="_blank"><span class="res-icon">🌐</span><div><div class="res-title">NAMI Helpline</div><div class="res-sub">1-800-950-6264 — Mon–Fri, 10am–10pm ET</div></div></a>
+  </div>
+
+  <!-- action buttons -->
+  <div class="btns">
+    <button class="btn-talk" id="btnTalk">💙  Talk to HappyLy now</button>
+    <button class="btn-ok" id="btnOk">I'm okay — let me back in</button>
+  </div>
+
+  <!-- explains why tabs are locked -->
+  <div class="lock-notice">
+    <div class="lock-dot"></div>
+    Tab switching is paused until you confirm you're safe
+  </div>
+</div>
+
+<!-- js in separate file — chrome blocks inline scripts -->
+<script src="alert.js"></script>
+</body>
+</html>
